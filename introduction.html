@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器介绍 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .language-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            color: #fff;
+        }
+        .language-modal.active {
+            display: flex;
+        }
+        .language-modal button {
+            margin: 10px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+        .language-modal button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-modal" id="languageModal">
+        <button onclick="setLanguage('en')">English</button>
+        <button onclick="setLanguage('zh-CN')">中文</button>
+    </div>
+
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="home">首页</a></li>
+                <li><a href="join.html" data-key="join">加入服务器</a></li>
+                <li><a href="about.html" data-key="rules">服务器规则</a></li>
+                <li><a href="donate.html" data-key="donate">赞助我们</a></li>
+                <li><a href="contact.html" data-key="contact">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="about-main">
+        <section class="section">
+            <div class="container">
+                <h2 data-key="server-intro-title">服务器介绍</h2>
+                <p class="introduction" data-key="server-intro-text">
+                    欢迎来到我们的Minecraft服务器！在这里，我们致力于为玩家提供一个充满乐趣、创造力和挑战的游戏环境。我们的服务器以其独特的玩法和友好的社区而闻名，吸引了来自世界各地的玩家。
+
+                    <br><br>我们的服务器提供多种游戏模式，包括经典的生存模式和刺激的PVP竞技场。在生存模式中，玩家可以体验到最原汁原味的Minecraft玩法，探索无尽的世界，收集资源，建造自己的家园，并与其他玩家合作或竞争。我们的PVP竞技场则为那些喜欢挑战的玩家提供了一个展示自己战斗技巧的舞台。
+
+                    <br><br>我们非常重视玩家的游戏体验，因此我们不断更新和优化服务器，以确保其稳定性和流畅性。我们的管理团队由一群热爱Minecraft的玩家组成，他们随时准备帮助解决任何问题，并确保服务器的公平和安全。
+
+                    <br><br>除了游戏玩法，我们的服务器还注重社区建设。我们鼓励玩家之间的交流与合作，定期举办各种活动和比赛，以增强社区的凝聚力。无论你是新手还是老玩家，你都能在这里找到志同道合的朋友。
+
+                    <br><br>我们欢迎所有热爱Minecraft的玩家加入我们的大家庭。无论你是想要建造宏伟的建筑，还是想要在竞技场中一展身手，我们的服务器都能满足你的需求。快来加入我们，开启你的Minecraft冒险之旅吧！
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+    const languageData = {
+        'en': {
+            'home': 'Home',
+            'join': 'Join Server',
+            'rules': 'Server Rules',
+            'donate': 'Donate',
+            'contact': 'Contact',
+            'server-intro-title': 'Server Introduction',
+            'server-intro-text': 'Welcome to our Minecraft server! Here, we are committed to providing players with a fun, creative, and challenging gaming environment. Our server is known for its unique gameplay and friendly community, attracting players from all over the world. Our server offers a variety of game modes, including classic survival mode and exciting PVP arenas. In survival mode, players can experience the most authentic Minecraft gameplay, explore endless worlds, gather resources, build their homes, and cooperate or compete with other players. Our PVP arenas provide a stage for those who like challenges to showcase their combat skills. We highly value the gaming experience of our players, so we continuously update and optimize the server to ensure its stability and smoothness. Our management team consists of a group of Minecraft enthusiasts who are always ready to help solve any problems and ensure the fairness and safety of the server. In addition to gameplay, our server also focuses on community building. We encourage communication and cooperation among players and regularly hold various events and competitions to enhance community cohesion. Whether you are a novice or a veteran player, you can find like-minded friends here. We welcome all Minecraft enthusiasts to join our family. Whether you want to build magnificent buildings or showcase your skills in the arena, our server can meet your needs. Come and join us, and start your Minecraft adventure!'
+        },
+        'zh-CN': {
+            'home': '首页',
+            'join': '加入服务器',
+            'rules': '服务器规则',
+            'donate': '赞助我们',
+            'contact': '联系方式',
+            'server-intro-title': '服务器介绍',
+            'server-intro-text': '欢迎来到我们的Minecraft服务器！在这里，我们致力于为玩家提供一个充满乐趣、创造力和挑战的游戏环境。我们的服务器以其独特的玩法和友好的社区而闻名，吸引了来自世界各地的玩家。我们的服务器提供多种游戏模式，包括经典的生存模式和刺激的PVP竞技场。在生存模式中，玩家可以体验到最原汁原味的Minecraft玩法，探索无尽的世界，收集资源，建造自己的家园，并与其他玩家合作或竞争。我们的PVP竞技场则为那些喜欢挑战的玩家提供了一个展示自己战斗技巧的舞台。我们非常重视玩家的游戏体验，因此我们不断更新和优化服务器，以确保其稳定性和流畅性。我们的管理团队由一群热爱Minecraft的玩家组成，他们随时准备帮助解决任何问题，并确保服务器的公平和安全。除了游戏玩法，我们的服务器还注重社区建设。我们鼓励玩家之间的交流与合作，定期举办各种活动和比赛，以增强社区的凝聚力。无论你是新手还是老玩家，你都能在这里找到志同道合的朋友。我们欢迎所有热爱Minecraft的玩家加入我们的大家庭。无论你是想要建造宏伟的建筑，还是想要在竞技场中一展身手，我们的服务器都能满足你的需求。快来加入我们，开启你的Minecraft冒险之旅吧！'
+        }
+    };
+
+    function setLanguage(lang) {
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (languageData[lang] && languageData[lang][key]) {
+                el.textContent = languageData[lang][key];
+            }
+        });
+        localStorage.setItem('preferredLanguage', lang);
+        document.getElementById('languageModal').style.display = 'none';
+    }
+
+    // Check for saved language preference
+    window.onload = function() {
+        const savedLanguage = localStorage.getItem('preferredLanguage');
+        if (savedLanguage) {
+            setLanguage(savedLanguage);
+        } else {
+            document.getElementById('languageModal').classList.add('active');
+        }
+    };
+    </script>
+</body>
+</html> 
