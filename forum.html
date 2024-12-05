@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .forum-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .new-post-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .new-post-btn:hover {
+            background: #45a049;
+        }
+        
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .category-card h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card p {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .post-list {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .post-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .post-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-title {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            display: block;
+        }
+
+        .post-title:hover {
+            color: #4CAF50;
+        }
+
+        .post-meta {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .login-message {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .login-message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-message a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="join.html">加入服务器</a></li>
+                <li><a href="about.html">服务器规则</a></li>
+                <li><a href="forum.html">论坛</a></li>
+                <li><a href="donate.html">赞助我们</a></li>
+                <li><a href="contact.html">联系方式</a></li>
+                <li><a href="login.html">登录</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="forum-container">
+                <div class="forum-header">
+                    <h2>服务器论坛</h2>
+                    <a href="new-post.html" class="new-post-btn" id="newPostBtn">发布新帖</a>
+                </div>
+
+                <div class="forum-categories">
+                    <div class="category-card" data-category="announcement">
+                        <h3>公告通知</h3>
+                        <p>服务器重要公告和更新信息</p>
+                    </div>
+                    <div class="category-card" data-category="discussion">
+                        <h3>玩家交流</h3>
+                        <p>分享游戏经验和交流心得</p>
+                    </div>
+                    <div class="category-card" data-category="showcase">
+                        <h3>建筑展示</h3>
+                        <p>展示你的精美建筑作品</p>
+                    </div>
+                    <div class="category-card" data-category="help">
+                        <h3>问题反馈</h3>
+                        <p>反馈问题和寻求帮助</p>
+                    </div>
+                </div>
+
+                <div class="post-list" id="postList">
+                    <!-- 帖子列表将通过JavaScript动态加载 -->
+                    <div class="empty-message">加载中...</div>
+                </div>
+
+                <div class="login-message" id="loginMessage" style="display: none;">
+                    需要 <a href="login.html">登录</a> 后才能发帖和回复
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 检查用户是否登录
+        const token = localStorage.getItem('token');
+        const newPostBtn = document.getElementById('newPostBtn');
+        const loginMessage = document.getElementById('loginMessage');
+
+        if (!token) {
+            newPostBtn.style.display = 'none';
+            loginMessage.style.display = 'block';
+        }
+
+        // 加载帖子列表
+        function loadPosts(category = '') {
+            const postList = document.getElementById('postList');
+            
+            fetch('/api/posts' + (category ? `?category=${category}` : ''), {
+                headers: token ? {
+                    'Authorization': `Bearer ${token}`
+                } : {}
+            })
+            .then(response => response.json())
+            .then(posts => {
+                if (posts.length === 0) {
+                    postList.innerHTML = '<div class="empty-message">暂无帖子</div>';
+                    return;
+                }
+
+                postList.innerHTML = posts.map(post => `
+                    <div class="post-item">
+                        <div class="post-info">
+                            <a href="post.html?id=${post._id}" class="post-title">${post.title}</a>
+                            <div class="post-meta">
+                                <span>作者: ${post.author.username}</span> • 
+                                <span>发布于: ${new Date(post.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="post-stats">
+                            <span>👁️ ${post.views}</span>
+                            <span>💬 ${post.comments.length}</span>
+                        </div>
+                    </div>
+                `).join('');
+            })
+            .catch(error => {
+                console.error('加载帖子失败:', error);
+                postList.innerHTML = '<div class="empty-message">加载失败，请稍后重试</div>';
+            });
+        }
+
+        // 分类点击事件
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                loadPosts(category);
+                
+                // 更新选中状态
+                document.querySelectorAll('.category-card').forEach(c => {
+                    c.style.background = 'rgba(255, 255, 255, 0.05)';
+                });
+                card.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // 初始加载所有帖子
+        loadPosts();
+    </script>
+</body>
+</html> 

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .login-btn:hover {
+            background: #45a049;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+            color: #fff;
+        }
+        
+        .register-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="join.html">加入服务器</a></li>
+                <li><a href="about.html">服务器规则</a></li>
+                <li><a href="forum.html">论坛</a></li>
+                <li><a href="donate.html">赞助我们</a></li>
+                <li><a href="contact.html">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="login-container">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">用户登录</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" required>
+                            <div class="error-message" id="usernameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">密码</label>
+                            <input type="password" id="password" required>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+                        
+                        <button type="submit" class="login-btn">登录</button>
+                        
+                        <div class="register-link">
+                            还没有账号？<a href="register.html">立即注册</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // 发送登录请求到服务器
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 登录成功，保存token
+                    localStorage.setItem('token', data.token);
+                    // 跳转到首页
+                    window.location.href = 'index.html';
+                } else {
+                    // 显示错误信息
+                    document.getElementById('passwordError').textContent = data.message;
+                    document.getElementById('passwordError').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('登录失败:', error);
+            });
+        });
+    </script>
+</body>
+</html> 

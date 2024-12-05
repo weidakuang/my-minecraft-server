@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赞助我们 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-overlay img {
+            width: 100px;
+            height: 100px;
+        }
+        .disclaimer {
+            color: #fff;
+            line-height: 1.8;
+            margin-top: 2rem;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="join.html">加入服务器</a></li>
+                <li><a href="about.html">服务器规则</a></li>
+                <li><a href="forum.html">论坛</a></li>
+                <li><a href="donate.html">赞助我们</a></li>
+                <li><a href="contact.html">联系方式</a></li>
+                <li><a href="login.html">登录</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h2>赞助我们</h2>
+                <div class="donate-plans">
+                    <div class="plan-card">
+                        <h3>基础赞助</h3>
+                        <img src="images/basic-package.png" alt="基础赞助图片" width="100" height="100">
+                        <div class="price">CA$0</div>
+                        <ul class="benefits">
+                            <li>新手礼包 × 1</li>
+                            <li>专属礼包 × 1</li>
+                            <li>需要关注我们的YouTube频道</li>
+                            <li class="note">* 每位玩家仅限领取一次</li>
+                        </ul>
+                        <button class="donate-button" onclick="claimBasic()">立即领取</button>
+                    </div>
+                    <div class="plan-card">
+                        <h3>普通赞助</h3>
+                        <div class="price">无法使用</div>
+                        <ul class="benefits">
+                            <li>高级新手礼包 × 1</li>
+                            <li>专属礼包 × 1</li>
+                            <li>基础权限 × 7天</li>
+                        </ul>
+                        <button class="donate-button" disabled>无法使用</button>
+                    </div>
+                    <div class="plan-card featured">
+                        <h3>高级赞助</h3>
+                        <div class="price">正在维护中</div>
+                        <ul class="benefits">
+                            <li>顶级新手礼包 × 1</li>
+                            <li>高级专属礼包 × 1</li>
+                            <li>专属称号 × 1</li>
+                            <li>OP权限 × 14天</li>
+                            <li>高级权限 × 20天</li>
+                        </ul>
+                        <button class="donate-button" disabled>暂不可用</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2>购买后免责声明</h2>
+                <p class="disclaimer">
+                    感谢您对我们的支持！请注意，所有赞助均为自愿行为，且一旦完成将不予退款。<br>
+                    您的赞助将用于服务器的维护和发展，帮助我们提供更好的服务。<br>
+                    我们承诺所有赞助的使用将保持透明，并不定期向玩家公布财务状况。<br>
+                    如有任何问题或疑虑，请随时联系管理员。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <img src="loading.gif" alt="Loading...">
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+    function claimBasic() {
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            window.location.href = 'claim-success.html';
+        }, 500);
+    }
+    </script>
+</body>
+</html> 

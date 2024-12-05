@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布新帖 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .post-form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .submit-btn,
+        .cancel-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .submit-btn:hover {
+            background: #45a049;
+        }
+        
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .editor-toolbar {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .editor-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+        
+        .editor-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="join.html">加入服务器</a></li>
+                <li><a href="about.html">服务器规则</a></li>
+                <li><a href="forum.html">论坛</a></li>
+                <li><a href="donate.html">赞助我们</a></li>
+                <li><a href="contact.html">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h2>发布新帖</h2>
+                <form class="post-form">
+                    <div class="form-group">
+                        <label for="category">选择分类</label>
+                        <select id="category" required>
+                            <option value="">请选择分类</option>
+                            <option value="announcement">公告通知</option>
+                            <option value="discussion">玩家交流</option>
+                            <option value="showcase">建筑展示</option>
+                            <option value="help">问题反馈</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="title">标题</label>
+                        <input type="text" id="title" placeholder="请输入标题" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="content">内容</label>
+                        <div class="editor-toolbar">
+                            <button type="button" class="editor-btn">B</button>
+                            <button type="button" class="editor-btn">I</button>
+                            <button type="button" class="editor-btn">U</button>
+                            <button type="button" class="editor-btn">图片</button>
+                            <button type="button" class="editor-btn">链接</button>
+                        </div>
+                        <textarea id="content" placeholder="请输入帖子内容" required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" onclick="history.back()">取消</button>
+                        <button type="submit" class="submit-btn">发布</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+</body>
+</html> 

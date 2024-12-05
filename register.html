@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 我的世界服务器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .register-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .register-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .register-btn:hover {
+            background: #45a049;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1rem;
+            color: #fff;
+        }
+        
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="join.html">加入服务器</a></li>
+                <li><a href="about.html">服务器规则</a></li>
+                <li><a href="forum.html">论坛</a></li>
+                <li><a href="donate.html">赞助我们</a></li>
+                <li><a href="contact.html">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="register-container">
+                    <h2 style="text-align: center; margin-bottom: 2rem;">用户注册</h2>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" required>
+                            <div class="error-message" id="usernameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">密码</label>
+                            <input type="password" id="password" required>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">确认密码</label>
+                            <input type="password" id="confirmPassword" required>
+                            <div class="error-message" id="confirmPasswordError"></div>
+                        </div>
+                        
+                        <button type="submit" class="register-btn">注册</button>
+                        
+                        <div class="login-link">
+                            已有账号？<a href="login.html">立即登录</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 我的世界服务器. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // 验证密码是否匹配
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = '两次输入的密码不一致';
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                return;
+            }
+            
+            // 发送注册请求到服务器
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 注册成功，跳转到登录页面
+                    window.location.href = 'login.html';
+                } else {
+                    // 显示错误信息
+                    const errorField = data.field + 'Error';
+                    document.getElementById(errorField).textContent = data.message;
+                    document.getElementById(errorField).style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('注册失败:', error);
+            });
+        });
+    </script>
+</body>
+</html> 
